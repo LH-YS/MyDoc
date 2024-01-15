@@ -10,15 +10,11 @@
 
 ​	接下来会具体介绍构建细节。
 
-
-
 ## 二、数据流向
 
 ​	简单的ETL流程：源表来自MySql，通过datax全量导入hbase，hive建立对应的映射表。增量数据通过maxwell导入kafka再经flink处理put到hbase。OLAP选择Clickhouse对接BI（暂未实现）。投递信息设计上也由flink处理，具体为拆解json再封装成三元组。
 
 ​	最后要处理的数据就是hive可映射的三张表，分别命名为position、company、account。结构如下：
-
-​	
 
 ## 三、组合文本
 
@@ -34,10 +30,6 @@ oa.spark.sql("use ods")
     position_content.registerTempTable("tmpcontent")
     oa.spark.sql("insert overwrite table ods_position_content select * from tmpcontent")
 ```
-
-​	得到的表：
-
-
 
 ## 四、文本分析
 
